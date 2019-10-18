@@ -7,11 +7,16 @@ import com.cwb.libemoji.util.AssetsUtil
 
 object FaceCenter {
 
+    private const val assetsPath = "json/icon.json"
+
     fun getFaceList(context: Context): MutableList<FaceBean>? {
-        val json = AssetsUtil.readAssets2String(context, "json/icon.json", "utf-8")
-        return JSON.parseObject(json, object {
-            var data: MutableList<FaceBean>? = null
-        }::class.java).data
+        val json = AssetsUtil.readAssets2String(context, assetsPath, "utf-8")
+        return JSON.parseObject(
+            json,
+            object {
+                var data: MutableList<FaceBean>? = null
+            }::class.java
+        ).data
     }
 
 }

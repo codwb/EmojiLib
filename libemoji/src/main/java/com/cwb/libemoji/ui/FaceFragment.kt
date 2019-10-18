@@ -24,7 +24,7 @@ import kotlin.concurrent.thread
  *
  *   Describe: Emoji表情布局
  */
-class PageFragment : Fragment() {
+class FaceFragment : Fragment() {
 
     //View
     private lateinit var rootView: View
@@ -45,8 +45,8 @@ class PageFragment : Fragment() {
     private var listener: OnFaceClickListener? = null
 
     companion object {
-        fun getInstance(listener: OnFaceClickListener): PageFragment {
-            val fragment = PageFragment()
+        fun getInstance(listener: OnFaceClickListener): FaceFragment {
+            val fragment = FaceFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             fragment.listener = listener
@@ -137,7 +137,7 @@ class PageFragment : Fragment() {
             }
         }
         val deleteEmoji = FaceBean()
-        deleteEmoji.image = "R.drawable.face_delete"
+        deleteEmoji.image = "face_delete"
         subList.add(deleteEmoji)
 
         val mGvAdapter = FaceGVAdapter(subList, context)

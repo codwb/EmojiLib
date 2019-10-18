@@ -10,9 +10,20 @@
 
     <FrameLayout
         android:id="@+id/frame"
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="300dp"
+        android:padding="10dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorAccent" />
+
+    <com.cwb.libemoji.ui.FaceLayout
+        android:id="@+id/face_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
 </LinearLayout>

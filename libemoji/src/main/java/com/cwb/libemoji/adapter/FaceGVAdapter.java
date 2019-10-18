@@ -59,15 +59,7 @@ public class FaceGVAdapter extends BaseAdapter {
 
             //先处理image，将string转为资源id
             String image = faceBean.getImage();
-            String imgId;
-            if (!image.startsWith("R.")) {
-                imgId = "R.drawable." + image;
-            } else {
-                imgId = image;
-            }
-            Log.e("GvAdapter", "image: " + imgId);
             int id = AssetsUtil.INSTANCE.getIdByName(mContext, image);
-            Log.e("GvAdapter", "id: " + id);
             holder.iv.setImageResource(id);
         }
         return convertView;

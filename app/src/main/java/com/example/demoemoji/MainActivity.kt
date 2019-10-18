@@ -1,11 +1,11 @@
 package com.example.demoemoji
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.cwb.libemoji.bean.FaceBean
 import com.cwb.libemoji.callback.OnFaceClickListener
-import com.cwb.libemoji.ui.PageFragment
+import com.cwb.libemoji.ui.FaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val beginTransaction = supportFragmentManager.beginTransaction()
         beginTransaction.replace(
             R.id.frame,
-            PageFragment.getInstance(object : OnFaceClickListener {
+            FaceFragment.getInstance(object : OnFaceClickListener {
                 override fun onClick(bean: FaceBean) {
                     Toast.makeText(baseContext, "content: ${bean.content}", Toast.LENGTH_SHORT)
                         .show()
@@ -28,5 +28,7 @@ class MainActivity : AppCompatActivity() {
             })
         )
         beginTransaction.commit()
+
+
     }
 }

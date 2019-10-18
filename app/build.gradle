@@ -13,7 +13,6 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -28,6 +27,9 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
 
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    //implementation 'com.github.codwb:EmojiLib:0.0.1'
     implementation project(':libemoji')
 
 }
