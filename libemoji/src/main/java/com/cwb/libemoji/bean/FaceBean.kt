@@ -9,4 +9,6 @@ class FaceBean {
 
     var image = ""
 
+    var imgId = 0
+
 }

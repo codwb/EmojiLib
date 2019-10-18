@@ -25,7 +25,6 @@ import kotlin.concurrent.thread
  */
 class FaceLayout : LinearLayout {
 
-
     private lateinit var mVp: ViewPager
     private lateinit var mIndicator: FaceIndicatorView
     private val vpViewList = mutableListOf<View>()
@@ -41,11 +40,19 @@ class FaceLayout : LinearLayout {
     //回调
     private var listener: OnFaceClickListener? = null
 
+    fun setOnFaceClickListener(listener: OnFaceClickListener) {
+        this.listener = listener
+    }
+
     constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context, att: AttributeSet) : super(context, att) {
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet, def: Int) : super(context, attrs, def) {
         init()
     }
 
