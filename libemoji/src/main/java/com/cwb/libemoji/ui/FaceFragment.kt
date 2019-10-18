@@ -140,20 +140,20 @@ class FaceFragment : Fragment() {
         deleteEmoji.image = "face_delete"
         subList.add(deleteEmoji)
 
-        val mGvAdapter = FaceGVAdapter(subList, context)
+        val mGvAdapter = FaceGVAdapter(subList, context!!)
         gridView.adapter = mGvAdapter
         gridView.numColumns = columns
         // 单击表情执行的操作
         gridView.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
-                if (position == columns * rows - 1) {
+            AdapterView.OnItemClickListener { _, _, i, _ ->
+                if (i == columns * rows - 1) {
                     if (listener != null) {
                         listener!!.onDelete()
                     }
                     return@OnItemClickListener
                 }
                 if (listener != null) {
-                    listener!!.onClick(subList[position]!!)
+                    listener!!.onClick(subList[i]!!)
                 }
             }
 
