@@ -13,10 +13,7 @@ in xml layout
     <com.cwb.libemoji.ui.FaceLayout
           android:id="@+id/face_layout"
           android:layout_width="match_parent"
-          android:layout_height="200dp"
-          android:layout_marginStart="20dp"
-          android:layout_marginTop="10dp"
-          android:layout_marginEnd="20dp" />
+          android:layout_height="200dp" />
 
 in class
 
