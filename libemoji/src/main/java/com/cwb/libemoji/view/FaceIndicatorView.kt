@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -28,7 +27,7 @@ class FaceIndicatorView @JvmOverloads constructor(
     private val mMaxHeight: Int
     private val mMaxWidth: Int
 
-    private var mPlayToAnimatorSet: AnimatorSet? = null
+    //private var mPlayToAnimatorSet: AnimatorSet? = null
     private var mPlayByInAnimatorSet: AnimatorSet? = null
     private var mPlayByOutAnimatorSet: AnimatorSet? = null
 
@@ -64,7 +63,7 @@ class FaceIndicatorView @JvmOverloads constructor(
         }
     }
 
-    fun setIndicatorCount(count: Int) {
+  /*  fun setIndicatorCount(count: Int) {
         if (mImageViews == null || count > mImageViews!!.size) {
             return
         }
@@ -96,7 +95,7 @@ class FaceIndicatorView @JvmOverloads constructor(
         mPlayToAnimatorSet!!.play(animIn1).with(animIn2)
         mPlayToAnimatorSet!!.duration = 100
         mPlayToAnimatorSet!!.start()
-    }
+    }*/
 
     fun playBy(startPosition: Int, nextPosition: Int) {
         var start = startPosition
@@ -106,11 +105,11 @@ class FaceIndicatorView @JvmOverloads constructor(
             start = next
         }
 
-        val imageViewStrat = mImageViews!![start]
+        val imageViewStart = mImageViews!![start]
         val imageViewNext = mImageViews!![next]
 
-        val anim1 = ObjectAnimator.ofFloat(imageViewStrat, "scaleX", 1.0f, 0.25f)
-        val anim2 = ObjectAnimator.ofFloat(imageViewStrat, "scaleY", 1.0f, 0.25f)
+        val anim1 = ObjectAnimator.ofFloat(imageViewStart, "scaleX", 1.0f, 0.25f)
+        val anim2 = ObjectAnimator.ofFloat(imageViewStart, "scaleY", 1.0f, 0.25f)
 
         if (mPlayByOutAnimatorSet != null && mPlayByOutAnimatorSet!!.isRunning) {
             mPlayByOutAnimatorSet!!.cancel()
@@ -135,9 +134,9 @@ class FaceIndicatorView @JvmOverloads constructor(
             override fun onAnimationStart(animation: Animator) {}
 
             override fun onAnimationEnd(animation: Animator) {
-                imageViewStrat.setImageBitmap(bmpNormal)
-                val animFil1l = ObjectAnimator.ofFloat(imageViewStrat, "scaleX", 1.0f)
-                val animFill2 = ObjectAnimator.ofFloat(imageViewStrat, "scaleY", 1.0f)
+                imageViewStart.setImageBitmap(bmpNormal)
+                val animFil1l = ObjectAnimator.ofFloat(imageViewStart, "scaleX", 1.0f)
+                val animFill2 = ObjectAnimator.ofFloat(imageViewStart, "scaleY", 1.0f)
                 val mFillAnimatorSet = AnimatorSet()
                 mFillAnimatorSet.play(animFil1l).with(animFill2)
                 mFillAnimatorSet.start()
@@ -152,8 +151,8 @@ class FaceIndicatorView @JvmOverloads constructor(
         mPlayByOutAnimatorSet!!.start()
     }
 
-    private fun dip2px(mContext: Context, dpValue: Int): Int {
-        return (0.5f + dpValue * mContext.resources.displayMetrics.density).toInt()
+    private fun dip2px(mContext: Context, dp: Int): Int {
+        return (0.5f + dp * mContext.resources.displayMetrics.density).toInt()
     }
 
     companion object {

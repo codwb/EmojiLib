@@ -18,31 +18,6 @@ object AssetsUtil {
 
     private const val BUFF_SIZE = 2048
 
-    fun getJson(fileName: String, context: Context): String {
-        //将json数据变成字符串
-        val stringBuilder = StringBuilder()
-        try {
-            //获取assets资源管理器
-            val assetManager = context.assets
-            //通过管理器打开文件并读取
-            val bf = BufferedReader(
-                InputStreamReader(
-                    assetManager.open(fileName)
-                )
-            )
-            var line: String? = ""
-            do {
-                line = bf.readLine()
-                if (line == null) break
-                stringBuilder.append(line)
-            } while (true)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-        return stringBuilder.toString()
-    }
-
     fun readAssets2String(context: Context, assetsFilePath: String, charsetName: String): String? {
         val inputStream: InputStream
         try {

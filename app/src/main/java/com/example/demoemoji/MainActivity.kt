@@ -2,7 +2,6 @@ package com.example.demoemoji
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.cwb.libemoji.FaceCenter
 import com.cwb.libemoji.bean.FaceBean
@@ -40,11 +39,11 @@ class MainActivity : AppCompatActivity() {
             @SuppressLint("SetTextI18n")
             override fun onClick(bean: FaceBean) {
                 val text = "${tv_face.text} ${bean.content}"
-                FaceCenter.handlerFaceText(tv_face, text, 12f)
+                FaceCenter.handlerFaceText(tv_face, text, 30f)
             }
 
             override fun onDelete() {
-                FaceCenter.deleteFace(tv_face, 12f)
+                FaceCenter.deleteFace(tv_face, 30f)
             }
 
         })
