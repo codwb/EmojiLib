@@ -30,7 +30,7 @@ in class
 
     })
   
-## Add ProgressDialog to your project.
+## Add EmojiLib to your project.
 
 [![](https://jitpack.io/v/codwb/EmojiLib.svg)](https://jitpack.io/#codwb/EmojiLib)
 
