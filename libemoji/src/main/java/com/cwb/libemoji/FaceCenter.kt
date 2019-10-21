@@ -21,9 +21,9 @@ object FaceCenter {
     private val faceMap = hashMapOf<String, Int>()
 
     /**
-     *  加载表情资源
+     *  先初始化加载数据
      */
-    fun getFaceList(context: Context): MutableList<FaceBean>? {
+    private fun init(context: Context) {
         val json = AssetsUtil.readAssets2String(context, assetsPath, "utf-8")
         if (faceList.size == 0) {
             val list = JSON.parseObject(
@@ -43,6 +43,15 @@ object FaceCenter {
             //map保存文字和图片id对应
             faceMap[i.content] = i.imgId
         }
+    }
+
+    /**
+     *  加载表情资源
+     */
+    fun getFaceList(context: Context): MutableList<FaceBean>? {
+        if (faceList.size == 0) {
+            init(context)
+        }
         return faceList
     }
 
@@ -55,6 +64,9 @@ object FaceCenter {
      */
     @Throws(IOException::class)
     fun handlerFaceText(textView: TextView, content: String, size: Float) {
+        if (faceMap.size == 0) {
+            init(textView.context)
+        }
         val context = textView.context
         val sb = SpannableStringBuilder(content)
         val regex = "\\[(\\S+?)]"
@@ -98,6 +110,5 @@ object FaceCenter {
             handlerFaceText(textView, result, size)
         }
     }
-
 
 }
