@@ -1,5 +1,8 @@
 package com.cwb.libemoji.view
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,9 +11,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.cwb.libemoji.R
-import com.nineoldandroids.animation.Animator
-import com.nineoldandroids.animation.AnimatorSet
-import com.nineoldandroids.animation.ObjectAnimator
 import java.util.*
 
 /**
@@ -151,6 +151,7 @@ class FaceIndicatorView @JvmOverloads constructor(
         mPlayByOutAnimatorSet!!.start()
     }
 
+    @Suppress("SameParameterValue")
     private fun dip2px(mContext: Context, dp: Int): Int {
         return (0.5f + dp * mContext.resources.displayMetrics.density).toInt()
     }

@@ -8,20 +8,20 @@ A library for showing emoji in Android.
 
 It's very easy to use.
 
-in xml layout
+In xml layout
 
     <com.cwb.libemoji.ui.FaceLayout
           android:id="@+id/face_layout"
           android:layout_width="match_parent"
           android:layout_height="200dp" />
 
-in class
+In class
 
     face_layout.setOnFaceClickListener(object : OnFaceClickListener {
 
         override fun onClick(bean: FaceBean) {
             val text = "... ${bean.content}"
-            FaceCenter.handlerFaceText(tv_face, text, 30f)
+            FaceCenter.showFace(tv_face, text, 30f)
         }
 
         override fun onDelete() {
@@ -29,6 +29,16 @@ in class
         }
 
     })
+	
+EditText delete event listener:
+	
+	editText.setOnKeyListener { v, keyCode, _ ->
+		if (keyCode == KeyEvent.KEYCODE_DEL) {
+			FaceCenter.deleteFace(v as EditText, 30f)
+			true
+		} else
+			false
+    }
   
 ## Add EmojiLib to your project.
 
@@ -42,3 +52,8 @@ in class
     }
 
 	implementation 'com.github.codwb:EmojiLib:Tag'
+
+  
+### If you need android-support lib
+
+  [Android-support Version](https://github.com/codwb/EmojiLib-support)

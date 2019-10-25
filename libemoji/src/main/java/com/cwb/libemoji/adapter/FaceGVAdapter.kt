@@ -11,6 +11,11 @@ import com.cwb.libemoji.R
 import com.cwb.libemoji.bean.FaceBean
 import com.cwb.libemoji.util.AssetsUtil
 
+/**
+ *   Create by cwb on 2019/10/16
+ *
+ *   Describe: GridView的表情adapter
+ */
 class FaceGVAdapter(private val list: List<FaceBean?>, private val mContext: Context) :
     BaseAdapter() {
 

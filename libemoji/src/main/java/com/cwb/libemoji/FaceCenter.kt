@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
+import android.widget.EditText
 import android.widget.TextView
 import com.alibaba.fastjson.JSON
 import com.cwb.libemoji.bean.FaceBean
@@ -12,6 +13,11 @@ import com.cwb.libemoji.util.BitmapUtil
 import java.io.IOException
 import java.util.regex.Pattern
 
+/**
+ *   Create by cwb on 2019/10/15
+ *
+ *   Describe: 表情处理center
+ */
 object FaceCenter {
 
     private const val assetsPath = "json/icon.json"
@@ -63,7 +69,7 @@ object FaceCenter {
      * @param size 表情图标大小(dp)
      */
     @Throws(IOException::class)
-    fun handlerFaceText(textView: TextView, content: String, size: Float) {
+    fun showFace(textView: TextView, content: String, size: Float) {
         if (faceMap.size == 0) {
             init(textView.context)
         }
@@ -89,6 +95,9 @@ object FaceCenter {
             }
         }
         textView.text = sb
+        if (textView is EditText) {
+            textView.setSelection(sb.length)
+        }
     }
 
     /**
@@ -96,18 +105,29 @@ object FaceCenter {
      */
     fun deleteFace(textView: TextView, size: Float) {
         val text = textView.text.toString()
-        val regex = "\\[(\\S+?)]"
-        val p = Pattern.compile(regex)
-        val m = p.matcher(text)
-        var temp = ""
-        while (m.find()) {
-            temp = m.group()
-        }
-        if (temp.isNotEmpty()) {
-            val index = text.lastIndexOf(temp)
-            val result = text.subSequence(0, index).toString()
-            //重新加载表情
-            handlerFaceText(textView, result, size)
+        if (text.isEmpty()) return
+        if (text.endsWith("]")) {
+            val regex = "\\[(\\S+?)]"
+            val p = Pattern.compile(regex)
+            val m = p.matcher(text)
+            var temp = ""
+            while (m.find()) {
+                temp = m.group()
+            }
+            if (temp.isNotEmpty()) {
+                val index = text.lastIndexOf(temp)
+                //判断最后一个matcher是否在最后的字符
+                val result = if (index + temp.length == text.length) {
+                    text.subSequence(0, index).toString()
+                } else {
+                    text.subSequence(0, text.lastIndex).toString()
+                }
+                //重新加载表情
+                showFace(textView, result, size)
+            }
+        } else {
+            val result = text.substring(0, text.lastIndex)
+            showFace(textView, result, size)
         }
     }
 

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             @SuppressLint("SetTextI18n")
             override fun onClick(bean: FaceBean) {
                 val text = "${tv_face.text} ${bean.content}"
-                FaceCenter.handlerFaceText(tv_face, text, 30f)
+                FaceCenter.showFace(tv_face, text, 30f)
             }
 
             override fun onDelete() {
