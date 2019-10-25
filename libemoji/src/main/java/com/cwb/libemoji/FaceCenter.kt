@@ -64,16 +64,60 @@ object FaceCenter {
     /**
      * 展示表情
      *
-     * @param textView 需要展示表情的view
+     * @param view 需要展示表情的view
      * @param content 文本
      * @param size 表情图标大小(dp)
      */
     @Throws(IOException::class)
-    fun showFace(textView: TextView, content: String, size: Float) {
+    fun showFace(view: TextView, content: String, size: Float) {
+        if (content.isEmpty() || size == 0f) return
         if (faceMap.size == 0) {
-            init(textView.context)
+            init(view.context)
         }
-        val context = textView.context
+        show(view, size, content)
+        if (view is EditText) {
+            view.setSelection(content.length)
+        }
+    }
+
+    /**
+     *  点击删除按钮删除表情
+     *
+     * @param view 需要展示表情的view
+     * @param size 表情图标大小(dp)
+     */
+    fun deleteFace(view: TextView, size: Float) {
+        val text = view.text.toString()
+        if (text.isEmpty()) return
+        val selection = view.selectionStart
+        val result: String
+        //光标新的位置
+        var index = 0
+        if (view is EditText && selection < text.length) {
+            val input = text.substring(0, selection)
+            val last = text.substring(selection, text.length)
+            result = "${delete(input)}${last}"
+            index = result.length - last.length
+        } else if (view is EditText && selection == text.length) {
+            result = delete(text)
+            index = result.length
+        } else {
+            result = delete(text)
+        }
+        //展示表情
+        show(view, size, result)
+
+        if (view is EditText) {
+            //重新设置光标位置
+            view.setSelection(index)
+        }
+    }
+
+    /**
+     *  textView展示表情
+     */
+    private fun show(view: TextView, size: Float, content: String) {
+        val context = view.context
         val sb = SpannableStringBuilder(content)
         val regex = "\\[(\\S+?)]"
         val p = Pattern.compile(regex)
@@ -94,18 +138,15 @@ object FaceCenter {
                 )
             }
         }
-        textView.text = sb
-        if (textView is EditText) {
-            textView.setSelection(sb.length)
-        }
+        view.text = sb
     }
 
     /**
-     *  点击删除按钮删除表情
+     *  删除逻辑
+     *  @return 处理后的字符串
      */
-    fun deleteFace(textView: TextView, size: Float) {
-        val text = textView.text.toString()
-        if (text.isEmpty()) return
+    private fun delete(text: String): String {
+        if (text.isEmpty()) return ""
         if (text.endsWith("]")) {
             val regex = "\\[(\\S+?)]"
             val p = Pattern.compile(regex)
@@ -117,17 +158,15 @@ object FaceCenter {
             if (temp.isNotEmpty()) {
                 val index = text.lastIndexOf(temp)
                 //判断最后一个matcher是否在最后的字符
-                val result = if (index + temp.length == text.length) {
-                    text.subSequence(0, index).toString()
+                return if (index + temp.length == text.length) {
+                    text.substring(0, index)
                 } else {
-                    text.subSequence(0, text.lastIndex).toString()
+                    text.substring(0, text.lastIndex)
                 }
-                //重新加载表情
-                showFace(textView, result, size)
             }
+            return text.substring(0, text.lastIndex)
         } else {
-            val result = text.substring(0, text.lastIndex)
-            showFace(textView, result, size)
+            return text.substring(0, text.lastIndex)
         }
     }
 
